@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 const customFetch = axios.create({
-  baseURL: '/api/v1',
+  baseURL: process.env.NEXT_PUBLIC_API_URL || '/api/v1',
   withCredentials: true,
 });
 
