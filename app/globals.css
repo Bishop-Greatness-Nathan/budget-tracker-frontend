@@ -1,0 +1,61 @@
+@import 'tailwindcss';
+
+:root {
+  /* --primary: #023e8a; */
+  --primary: #0077b6;
+  /* --primary: #003e7e; */
+  --hoverColor: lightblue;
+  --bgColor: white;
+  --textSecondary: darkslategray;
+}
+
+body {
+  margin: 0;
+  background: var(--primary);
+}
+
+/* .active {
+  color: white;
+  background: var(--primary);
+} */
+
+.blured-bg {
+  background: linear-gradient(
+    rgba(0, 0, 0, 0.7),
+    rgba(0, 0, 0, 0.7),
+    rgba(0, 0, 0, 0.7)
+  );
+}
+
+.small-sidebar {
+  background: linear-gradient(
+    rgba(0, 0, 0, 0.7),
+    rgba(0, 0, 0, 0.7),
+    rgba(0, 0, 0, 0.7)
+  );
+}
+
+::-webkit-scrollbar {
+  width: 5px;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: white;
+  border-radius: 6px;
+}
+
+@keyframes spinner {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.loading {
+  width: 70px;
+  height: 70px;
+  margin: auto;
+  border: 5px solid var(--primary);
+  border-top-color: white;
+  border-radius: 50%;
+  animation: spinner 0.5s linear infinite;
+}
