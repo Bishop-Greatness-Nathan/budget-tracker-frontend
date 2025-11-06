@@ -4,33 +4,33 @@ import Loading from '@/components/Loading';
 import customFetch from '@/utils/customFetch';
 import Link from 'next/link';
 import { useSearchParams } from 'next/navigation';
-import { useEffect, useState } from 'react';
+import { FormEvent, useEffect, useState } from 'react';
+import { toast } from 'react-toastify';
 
 export default function VerifyEmail() {
   const [error, setError] = useState(false);
   const [loading, setLoading] = useState(false);
 
   const searchParams = useSearchParams();
+  const [token] = useState(searchParams.get('token'));
+  const [email] = useState(searchParams.get('email'));
 
-  const verifyToken = async () => {
+  console.log(email, token);
+  const verifyToken = async (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    const formData = new FormData(e.currentTarget);
+    const data = Object.fromEntries(formData);
+
     setLoading(true);
     try {
-      await customFetch.post('/auth/verify-email', {
-        verificationToken: searchParams.get('token'),
-        email: searchParams.get('email'),
-      });
+      await customFetch.post('/auth/verify-email', data);
+      toast.success('congratulations');
     } catch (error) {
       console.log(error);
       setError(true);
     }
     setLoading(false);
   };
-
-  useEffect(() => {
-    if (!loading) {
-      verifyToken();
-    }
-  }, []);
 
   if (loading) {
     return <Loading />;
@@ -46,17 +46,28 @@ export default function VerifyEmail() {
 
   return (
     <div className='mt-20 text-center'>
-      <h2 className='font-semibold'>Account Confirmed!!!</h2>
+      <form onSubmit={verifyToken}>
+        <input
+          type='text'
+          name='token'
+          defaultValue={token as string}
+          className='hidden'
+        />
+        <input
+          type='email'
+          name='email'
+          defaultValue={email as string}
+          className='hidden'
+        />
+        <button>verify my account</button>
+      </form>
+      {/* <h2 className='font-semibold'>Account Confirmed!!!</h2>
       <div>
         You can now proceed to{' '}
-        <Link
-          href='/login'
-          prefetch={true}
-          className='text-white font-semibold'
-        >
+        <Link href='/login' className='text-white font-semibold'>
           Login
         </Link>
-      </div>
+      </div> */}
     </div>
   );
 }
