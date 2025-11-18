@@ -21,7 +21,8 @@ export default function Home() {
             <img src='/budget_img2.jpg' alt='' />
           </div>
           <p className='text-[var(--primary)] font-semibold'>
-            {'"'}When there is no budget, every money is surplus{'"'} - RPN
+            {'"'}When there is no budget, every money you receive is surplus
+            {'"'} - RPN
           </p>
           <p className='text-sm md:text-base'>
             Luke 14:28-30 KJV For which of you, intending to build a tower,
